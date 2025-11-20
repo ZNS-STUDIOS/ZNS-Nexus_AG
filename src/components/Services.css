@@ -1,0 +1,111 @@
+.services-wrapper {
+    overflow: hidden;
+    background-color: var(--bg-color);
+}
+
+.services-container {
+    display: flex;
+    width: 500vw;
+    /* 5 slides */
+    height: 100vh;
+}
+
+.service-slide {
+    width: 100vw;
+    height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 0 10vw;
+    border-right: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+.intro-slide {
+    flex-direction: column;
+    align-items: flex-start;
+    justify-content: center;
+}
+
+.intro-slide .section-title {
+    font-size: clamp(4rem, 10vw, 12rem);
+    line-height: 0.9;
+    margin-bottom: 2rem;
+    text-align: left;
+}
+
+.scroll-hint {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    font-size: 1.2rem;
+    color: #666;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+}
+
+.service-card-premium {
+    width: 100%;
+    max-width: 800px;
+    background: linear-gradient(145deg, #0f0f0f, #050505);
+    padding: 4rem;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    position: relative;
+    overflow: hidden;
+}
+
+.service-card-premium::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 4px;
+    background: var(--accent-color);
+    transform: scaleX(0);
+    transform-origin: left;
+    transition: transform 0.5s ease;
+}
+
+.service-card-premium:hover::before {
+    transform: scaleX(1);
+}
+
+.service-icon-large {
+    color: var(--accent-color);
+    margin-bottom: 2rem;
+}
+
+.service-title-large {
+    font-size: clamp(2rem, 4vw, 4rem);
+    margin-bottom: 1.5rem;
+    font-family: var(--font-heading);
+}
+
+.service-desc-large {
+    font-size: 1.25rem;
+    color: #ccc;
+    margin-bottom: 3rem;
+    max-width: 600px;
+}
+
+.service-tags {
+    display: flex;
+    gap: 1rem;
+    flex-wrap: wrap;
+}
+
+.tag {
+    padding: 0.5rem 1.5rem;
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    border-radius: 50px;
+    font-size: 0.9rem;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    color: #888;
+    transition: all 0.3s ease;
+}
+
+.service-card-premium:hover .tag {
+    border-color: var(--accent-color);
+    color: var(--accent-color);
+}

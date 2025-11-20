@@ -1,0 +1,31 @@
+.marquee-container {
+    width: 100%;
+    overflow: hidden;
+    background: var(--accent-color);
+    color: var(--bg-color);
+    padding: 1rem 0;
+    display: flex;
+    align-items: center;
+    white-space: nowrap;
+    position: relative;
+    z-index: 10;
+}
+
+.marquee-inner {
+    display: flex;
+    will-change: transform;
+}
+
+.marquee-item {
+    font-family: var(--font-heading);
+    font-size: 1.5rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    display: flex;
+    align-items: center;
+}
+
+.marquee-separator {
+    margin: 0 2rem;
+    opacity: 0.5;
+}
