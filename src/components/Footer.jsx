@@ -1,5 +1,6 @@
 import React from 'react';
-import { Instagram, Twitter, Linkedin, Mail, ArrowUpRight } from 'lucide-react';
+import { ArrowUpRight, Instagram, Twitter, Linkedin } from 'lucide-react';
+import { Link } from 'react-router-dom';
 import './Footer.css';
 
 const Footer = () => {
@@ -11,9 +12,9 @@ const Footer = () => {
                         Let's Build<br />
                         <span className="text-outline">The Future</span>
                     </h2>
-                    <a href="mailto:hello@znsnexus.com" className="footer-magnetic-btn">
+                    <Link to="/contact" className="footer-magnetic-btn">
                         Start Project <ArrowUpRight size={40} />
-                    </a>
+                    </Link>
                 </div>
 
                 <div className="footer-bottom-premium">

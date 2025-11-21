@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { Menu, X } from 'lucide-react';
+import { Link } from 'react-router-dom';
 import './Header.css';
 
 const Header = () => {
@@ -19,18 +20,18 @@ const Header = () => {
     };
 
     const navLinks = [
-        { name: 'Services', href: '#services' },
-        { name: 'Process', href: '#process' },
-        { name: 'Why Us', href: '#why-us' },
-        { name: 'FAQ', href: '#faq' },
+        { name: 'Services', href: '/#services' },
+        { name: 'Process', href: '/#process' },
+        { name: 'Why Us', href: '/#why-us' },
+        { name: 'FAQ', href: '/#faq' },
     ];
 
     return (
         <header className={`header ${isScrolled ? 'scrolled' : ''}`}>
             <div className="container header-container">
-                <a href="#" className="logo">
+                <Link to="/" className="logo">
                     ZNS <span>Nexus</span>
-                </a>
+                </Link>
 
                 {/* Desktop Nav */}
                 <nav className="nav-desktop">
@@ -43,9 +44,9 @@ const Header = () => {
                             {link.name}
                         </a>
                     ))}
-                    <a href="#contact" className="btn btn-primary" style={{ padding: '0.5rem 1.5rem', fontSize: '0.9rem' }}>
+                    <Link to="/contact" className="btn btn-primary" style={{ padding: '0.5rem 1.5rem', fontSize: '0.9rem' }}>
                         Get in Touch
-                    </a>
+                    </Link>
                 </nav>
 
                 {/* Mobile Toggle */}
@@ -66,13 +67,13 @@ const Header = () => {
                         {link.name}
                     </a>
                 ))}
-                <a
-                    href="#contact"
+                <Link
+                    to="/contact"
                     className="btn btn-primary"
                     onClick={() => setIsMobileMenuOpen(false)}
                 >
                     Get in Touch
-                </a>
+                </Link>
             </div>
         </header>
     );
