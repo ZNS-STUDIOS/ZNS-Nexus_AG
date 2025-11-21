@@ -39,7 +39,6 @@ const Services = () => {
 
     useEffect(() => {
         const slides = sectionRef.current.querySelectorAll('.service-slide');
-        const totalWidth = slides.length * 100; // 100vw per slide
 
         const pin = gsap.to(sectionRef.current, {
             xPercent: -100 * (slides.length - 1),
@@ -49,7 +48,8 @@ const Services = () => {
                 pin: true,
                 scrub: 1,
                 snap: 1 / (slides.length - 1),
-                end: () => "+=" + sectionRef.current.offsetWidth
+                // Fix: Use a multiplier based on slide count to control duration precisely
+                end: () => "+=" + (slides.length * 100) + "%"
             }
         });
 

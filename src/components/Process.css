@@ -1,6 +1,7 @@
 .process-section-new {
     background-color: var(--bg-color);
-    padding: 10rem 0;
+    padding: 4rem 0 10rem;
+    /* Reduced top padding */
 }
 
 .process-header {

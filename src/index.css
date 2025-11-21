@@ -13,7 +13,8 @@
   --font-body: 'Inter', sans-serif;
   --font-mono: 'Space Grotesk', monospace;
 
-  --spacing-section: 160px;
+  --spacing-section: 120px;
+  /* Reduced from 160px */
   --spacing-container: 4vw;
 }
 
