@@ -56,8 +56,14 @@ const Services = () => {
                 scrub: 0.5, // Add a little lag for smoothness, but keep it responsive
                 // snap: 1 / (slides.length - 1), // REMOVED: User requested manual control
                 end: "+=3000", // Increase duration to make the scroll slower and more controlled
+                invalidateOnRefresh: true, // Ensure calculations are redone on resize/refresh
             }
         });
+
+        // Force a refresh to ensure ScrollTrigger calculates correctly after layout settles
+        setTimeout(() => {
+            ScrollTrigger.refresh();
+        }, 500);
 
         // Animate individual cards as they enter center
         slides.forEach((slide, i) => {
