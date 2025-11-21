@@ -40,16 +40,21 @@ const Services = () => {
     useEffect(() => {
         const slides = sectionRef.current.querySelectorAll('.service-slide');
 
+        // Calculate the exact distance to scroll: Total width of all slides - Viewport width
+        // This ensures we stop exactly when the last slide is fully in view.
+        const totalWidth = sectionRef.current.scrollWidth;
+        const viewportWidth = window.innerWidth;
+        const xMovement = -(totalWidth - viewportWidth);
+
         const pin = gsap.to(sectionRef.current, {
-            xPercent: -100 * (slides.length - 1),
+            x: xMovement, // Use 'x' (pixels) instead of 'xPercent' to avoid the 500% error
             ease: "none",
             scrollTrigger: {
                 trigger: triggerRef.current,
                 pin: true,
-                scrub: 1,
-                snap: 1 / (slides.length - 1),
-                // Fix: Use a multiplier based on slide count to control duration precisely
-                end: () => "+=" + (slides.length * 100) + "%"
+                scrub: 0.5, // Add a little lag for smoothness, but keep it responsive
+                // snap: 1 / (slides.length - 1), // REMOVED: User requested manual control
+                end: "+=3000", // Increase duration to make the scroll slower and more controlled
             }
         });
 
