@@ -1,58 +1,54 @@
 import React, { useEffect, useRef } from 'react';
 import gsap from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
+import PremiumBackground from './PremiumBackground';
 import './Process.css';
 
 gsap.registerPlugin(ScrollTrigger);
 
-const steps = [
+const processSteps = [
     {
-        number: "01",
+        id: "01",
         title: "Discovery",
         desc: "We dive deep into your goals, audience, and vision. No assumptions, just data-driven insights."
     },
     {
-        number: "02",
+        id: "02",
         title: "Strategy",
-        desc: "Custom solutions tailored to your business. We map out the user journey and technical architecture."
+        desc: "We build a roadmap that aligns design with business objectives. Every pixel has a purpose."
     },
     {
-        number: "03",
-        title: "Creation",
-        desc: "Our team brings your vision to life with precision. Pixel-perfect design meets robust engineering."
+        id: "03",
+        title: "Design",
+        desc: "We craft visual experiences that captivate. Bold typography, immersive layouts, and premium aesthetics."
     },
     {
-        number: "04",
-        title: "Growth",
-        desc: "Launch is just the beginning. We monitor, optimize, and scale your digital presence."
+        id: "04",
+        title: "Development",
+        desc: "We bring the vision to life with clean, performant code. Smooth animations and flawless responsiveness."
     }
 ];
 
 const Process = () => {
-    const processRef = useRef(null);
+    const sectionRef = useRef(null);
 
     useEffect(() => {
-        const steps = processRef.current.querySelectorAll('.process-step-new');
+        const steps = sectionRef.current.querySelectorAll('.process-step-new');
 
         steps.forEach((step, index) => {
-            // Animate opacity and scale based on scroll position
             gsap.fromTo(step,
-                {
-                    opacity: 0.3,
-                    scale: 0.95,
-                    filter: "blur(2px)"
-                },
+                { opacity: 0.2, scale: 0.95, filter: "blur(5px)" },
                 {
                     opacity: 1,
                     scale: 1,
                     filter: "blur(0px)",
-                    duration: 0.5,
+                    duration: 0.8,
                     scrollTrigger: {
                         trigger: step,
-                        start: "top 60%",
-                        end: "top 40%",
-                        toggleActions: "play reverse play reverse",
-                        scrub: true
+                        start: "top 70%",
+                        end: "top 30%",
+                        scrub: true,
+                        toggleActions: "play reverse play reverse"
                     }
                 }
             );
@@ -60,16 +56,17 @@ const Process = () => {
     }, []);
 
     return (
-        <section className="section process-section-new" id="process" ref={processRef}>
+        <section className="process-section-new" ref={sectionRef}>
+            <PremiumBackground variant="section" particleCount={40} />
             <div className="container">
                 <div className="process-header">
-                    <h2 className="section-title">How We Work</h2>
+                    <h2 className="section-title">How We <span className="text-gradient">Work</span></h2>
                 </div>
 
                 <div className="process-list">
-                    {steps.map((step, index) => (
-                        <div className="process-step-new" key={index}>
-                            <div className="step-number-large">{step.number}</div>
+                    {processSteps.map((step) => (
+                        <div className="process-step-new" key={step.id}>
+                            <div className="step-number-large">{step.id}</div>
                             <div className="step-content-new">
                                 <h3 className="step-title-new">{step.title}</h3>
                                 <p className="step-desc-new">{step.desc}</p>

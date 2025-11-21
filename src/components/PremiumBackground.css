@@ -1,0 +1,81 @@
+.premium-background-wrapper {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 0;
+    overflow: hidden;
+    background-color: #0a0a0a;
+    pointer-events: none;
+}
+
+.premium-background-wrapper.hero {
+    /* Hero specific overrides if needed */
+}
+
+.gradient-spotlight {
+    position: absolute;
+    width: 60vw;
+    height: 60vw;
+    border-radius: 50%;
+    filter: blur(120px);
+    opacity: 0.15;
+    pointer-events: none;
+}
+
+.top-left {
+    top: -20%;
+    left: -20%;
+    background: radial-gradient(circle, #069593 0%, transparent 70%);
+    animation: pulse-slow 10s infinite alternate;
+}
+
+.bottom-right {
+    bottom: -20%;
+    right: -20%;
+    background: radial-gradient(circle, #14e08e 0%, transparent 70%);
+    animation: pulse-slow 12s infinite alternate-reverse;
+}
+
+.premium-canvas {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 1;
+}
+
+/* Improved Film Grain */
+.film-grain-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 2;
+    opacity: 0.07;
+    filter: url(#noiseFilter);
+    pointer-events: none;
+}
+
+/* Hide the SVG definition */
+.grain-svg {
+    position: absolute;
+    width: 0;
+    height: 0;
+    pointer-events: none;
+}
+
+@keyframes pulse-slow {
+    0% {
+        transform: scale(1);
+        opacity: 0.1;
+    }
+
+    100% {
+        transform: scale(1.1);
+        opacity: 0.2;
+    }
+}

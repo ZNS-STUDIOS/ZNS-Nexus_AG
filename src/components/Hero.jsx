@@ -1,7 +1,7 @@
 import React, { useEffect, useRef } from 'react';
 import gsap from 'gsap';
 import { ArrowRight } from 'lucide-react';
-import HeroBackground from './HeroBackground';
+import PremiumBackground from './PremiumBackground';
 import './Hero.css';
 
 const Hero = () => {
@@ -57,7 +57,7 @@ const Hero = () => {
 
     return (
         <section className="hero-section" id="home" ref={heroRef}>
-            <HeroBackground />
+            <PremiumBackground variant="hero" />
             <div className="hero-container container">
 
                 {/* Bridge Visualization - Top Part */}

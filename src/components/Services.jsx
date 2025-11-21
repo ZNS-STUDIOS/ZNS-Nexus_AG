@@ -2,6 +2,7 @@ import React, { useEffect, useRef } from 'react';
 import gsap from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import { Code, Video, Share2, PenTool, ArrowRight } from 'lucide-react';
+import PremiumBackground from './PremiumBackground';
 import './Services.css';
 
 gsap.registerPlugin(ScrollTrigger);
@@ -89,6 +90,7 @@ const Services = () => {
 
     return (
         <section className="services-wrapper" ref={triggerRef}>
+            <PremiumBackground variant="section" particleCount={40} />
             <div className="services-container" ref={sectionRef}>
 
                 {/* Intro Slide */}
