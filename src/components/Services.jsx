@@ -36,94 +36,66 @@ const services = [
 
 const Services = () => {
     const sectionRef = useRef(null);
-    const triggerRef = useRef(null);
 
     useEffect(() => {
-        let ctx = gsap.context(() => {
-            const slides = sectionRef.current.querySelectorAll('.service-slide');
+        const ctx = gsap.context(() => {
+            const cards = document.querySelectorAll('.service-card-premium');
+            const totalCards = cards.length;
 
-            // Calculate the exact distance to scroll
-            const totalWidth = sectionRef.current.scrollWidth;
-            const viewportWidth = window.innerWidth;
-            const xMovement = -(totalWidth - viewportWidth);
-
-            const pin = gsap.to(sectionRef.current, {
-                x: xMovement,
-                ease: "none",
-                scrollTrigger: {
-                    trigger: triggerRef.current,
-                    pin: true,
-                    scrub: 1,
-                    start: "top top",
-                    end: "+=3000",
-                    anticipatePin: 1,
-                    invalidateOnRefresh: true,
-                }
+            cards.forEach((card, i) => {
+                gsap.to(card, {
+                    scrollTrigger: {
+                        trigger: card,
+                        start: "top top+=100",
+                        end: "bottom top",
+                        scrub: true,
+                        invalidateOnRefresh: true,
+                    },
+                    ease: "none",
+                    scale: 1 - (totalCards - i) * 0.05,
+                    y: -50,
+                    opacity: 1 - (totalCards - i) * 0.1,
+                    filter: "brightness(0.5)",
+                });
             });
-
-            // Animate individual cards as they enter center
-            slides.forEach((slide, i) => {
-                if (i === 0) return; // Skip intro slide
-
-                const card = slide.querySelector('.service-card-premium');
-
-                gsap.fromTo(card,
-                    { scale: 0.8, opacity: 0.5 },
-                    {
-                        scale: 1,
-                        opacity: 1,
-                        duration: 0.5,
-                        scrollTrigger: {
-                            trigger: slide,
-                            containerAnimation: pin,
-                            start: "left center",
-                            end: "right center",
-                            toggleActions: "play reverse play reverse",
-                            id: `card-${i}`
-                        }
-                    }
-                );
-            });
-        }, triggerRef);
-
-        // Force a refresh to ensure ScrollTrigger calculates correctly after layout settles
-        setTimeout(() => {
-            ScrollTrigger.refresh();
-        }, 500);
+        }, sectionRef);
 
         return () => ctx.revert();
     }, []);
 
     return (
-        <section className="services-wrapper" ref={triggerRef}>
-            <PremiumBackground variant="section" particleCount={40} />
-            <div className="services-container" ref={sectionRef}>
+        <section className="services-section" ref={sectionRef}>
+            <PremiumBackground variant="section" particleCount={30} />
 
-                {/* Intro Slide */}
-                <div className="service-slide intro-slide">
+            <div className="container services-content">
+                <div className="services-header">
                     <h2 className="section-title">
-                        What We<br />
-                        <span className="text-gradient">Do Best</span>
+                        Our <span className="text-gradient">Expertise</span>
                     </h2>
-                    <p className="scroll-hint">Scroll to explore <ArrowRight /></p>
+                    <p className="section-subtitle">
+                        We craft digital experiences that leave a lasting impression.
+                    </p>
                 </div>
 
-                {/* Service Slides */}
-                {services.map((service, index) => (
-                    <div className="service-slide" key={index}>
-                        <div className="service-card-premium">
-                            <div className="service-icon-large">{service.icon}</div>
-                            <h3 className="service-title-large">{service.title}</h3>
-                            <p className="service-desc-large">{service.desc}</p>
-                            <div className="service-tags">
-                                {service.tags.map((tag, i) => (
-                                    <span key={i} className="tag">{tag}</span>
-                                ))}
+                <div className="services-stack-container">
+                    {services.map((service, index) => (
+                        <div className="service-card-wrapper" key={index} style={{ zIndex: index + 1 }}>
+                            <div className="service-card-premium">
+                                <div className="card-content">
+                                    <div className="service-icon-large">{service.icon}</div>
+                                    <h3 className="service-title-large">{service.title}</h3>
+                                    <p className="service-desc-large">{service.desc}</p>
+                                    <div className="service-tags">
+                                        {service.tags.map((tag, i) => (
+                                            <span key={i} className="tag">{tag}</span>
+                                        ))}
+                                    </div>
+                                </div>
+                                <div className="card-number">0{index + 1}</div>
                             </div>
                         </div>
-                    </div>
-                ))}
-
+                    ))}
+                </div>
             </div>
         </section>
     );

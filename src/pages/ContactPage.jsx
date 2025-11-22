@@ -21,21 +21,21 @@ const ContactPage = () => {
                             <Mail className="info-icon" />
                             <div>
                                 <span className="info-label">Email</span>
-                                <a href="mailto:hello@znsnexus.com" className="info-link">hello@znsnexus.com</a>
+                                <a href="mailto:ZNS.NXS@proton.me" className="info-link">ZNS.NXS@proton.me</a>
                             </div>
                         </div>
                         <div className="info-item">
                             <Phone className="info-icon" />
                             <div>
                                 <span className="info-label">Phone</span>
-                                <a href="tel:+1234567890" className="info-link">+1 (234) 567-890</a>
+                                <a href="tel:+919152365247" className="info-link">+91 91523 65247</a>
                             </div>
                         </div>
                         <div className="info-item">
                             <MapPin className="info-icon" />
                             <div>
                                 <span className="info-label">Office</span>
-                                <p className="info-text">123 Innovation Dr,<br />Tech City, TC 90210</p>
+                                <p className="info-text">Mumbai, Maharashtra</p>
                             </div>
                         </div>
                     </div>

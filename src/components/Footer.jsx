@@ -24,9 +24,9 @@ const Footer = () => {
 
                     <div className="footer-links-row">
                         <div className="social-links">
-                            <a href="#">Instagram</a>
-                            <a href="#">Twitter</a>
-                            <a href="#">LinkedIn</a>
+                            <a href="https://www.instagram.com/zns_nexus/" target="_blank" rel="noopener noreferrer">Instagram</a>
+                            <a href="https://www.linkedin.com/company/zns-nexus?trk=public_profile_topcard-current-company" target="_blank" rel="noopener noreferrer">LinkedIn</a>
+                            <a href="mailto:ZNS.NXS@proton.me">Email</a>
                         </div>
                         <div className="copyright">
                             &copy; 2025 ZNS Nexus
