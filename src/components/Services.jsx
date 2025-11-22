@@ -39,59 +39,59 @@ const Services = () => {
     const triggerRef = useRef(null);
 
     useEffect(() => {
-        const slides = sectionRef.current.querySelectorAll('.service-slide');
+        let ctx = gsap.context(() => {
+            const slides = sectionRef.current.querySelectorAll('.service-slide');
 
-        // Calculate the exact distance to scroll: Total width of all slides - Viewport width
-        // This ensures we stop exactly when the last slide is fully in view.
-        const totalWidth = sectionRef.current.scrollWidth;
-        const viewportWidth = window.innerWidth;
-        const xMovement = -(totalWidth - viewportWidth);
+            // Calculate the exact distance to scroll
+            const totalWidth = sectionRef.current.scrollWidth;
+            const viewportWidth = window.innerWidth;
+            const xMovement = -(totalWidth - viewportWidth);
 
-        const pin = gsap.to(sectionRef.current, {
-            x: xMovement, // Use 'x' (pixels) instead of 'xPercent' to avoid the 500% error
-            ease: "none",
-            scrollTrigger: {
-                trigger: triggerRef.current,
-                pin: true,
-                scrub: 0.5, // Add a little lag for smoothness, but keep it responsive
-                // snap: 1 / (slides.length - 1), // REMOVED: User requested manual control
-                end: "+=3000", // Increase duration to make the scroll slower and more controlled
-                invalidateOnRefresh: true, // Ensure calculations are redone on resize/refresh
-            }
-        });
+            const pin = gsap.to(sectionRef.current, {
+                x: xMovement,
+                ease: "none",
+                scrollTrigger: {
+                    trigger: triggerRef.current,
+                    pin: true,
+                    scrub: 1,
+                    start: "top top",
+                    end: "+=3000",
+                    anticipatePin: 1,
+                    invalidateOnRefresh: true,
+                }
+            });
+
+            // Animate individual cards as they enter center
+            slides.forEach((slide, i) => {
+                if (i === 0) return; // Skip intro slide
+
+                const card = slide.querySelector('.service-card-premium');
+
+                gsap.fromTo(card,
+                    { scale: 0.8, opacity: 0.5 },
+                    {
+                        scale: 1,
+                        opacity: 1,
+                        duration: 0.5,
+                        scrollTrigger: {
+                            trigger: slide,
+                            containerAnimation: pin,
+                            start: "left center",
+                            end: "right center",
+                            toggleActions: "play reverse play reverse",
+                            id: `card-${i}`
+                        }
+                    }
+                );
+            });
+        }, triggerRef);
 
         // Force a refresh to ensure ScrollTrigger calculates correctly after layout settles
         setTimeout(() => {
             ScrollTrigger.refresh();
         }, 500);
 
-        // Animate individual cards as they enter center
-        slides.forEach((slide, i) => {
-            if (i === 0) return; // Skip intro slide
-
-            const card = slide.querySelector('.service-card-premium');
-
-            gsap.fromTo(card,
-                { scale: 0.8, opacity: 0.5 },
-                {
-                    scale: 1,
-                    opacity: 1,
-                    duration: 0.5,
-                    scrollTrigger: {
-                        trigger: slide,
-                        containerAnimation: pin,
-                        start: "left center",
-                        end: "right center",
-                        toggleActions: "play reverse play reverse",
-                        id: `card-${i}`
-                    }
-                }
-            );
-        });
-
-        return () => {
-            pin.kill();
-        };
+        return () => ctx.revert();
     }, []);
 
     return (
