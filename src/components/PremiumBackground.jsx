@@ -11,11 +11,21 @@ const PremiumBackground = ({ variant = 'default', particleCount = 60 }) => {
         let animationFrameId;
         let particles = [];
 
+        // Mouse state
+        const mouse = { x: -1000, y: -1000 }; // Start off-screen
+
         // Configuration based on variant
         const isHero = variant === 'hero';
         const count = window.innerWidth < 768 ? particleCount / 2 : particleCount;
         const connectionDistance = isHero ? 150 : 100;
-        const moveSpeed = isHero ? 0.2 : 0.1;
+        const moveSpeed = isHero ? 0.3 : 0.15;
+
+        // Interaction configuration
+        const interactionRadius = 200;
+        const baseOpacity = 0.2;
+        const activeOpacity = 1.0;
+        const baseLineOpacity = 0.05;
+        const activeLineOpacity = 0.6;
 
         const resize = () => {
             const container = containerRef.current;
@@ -29,13 +39,27 @@ const PremiumBackground = ({ variant = 'default', particleCount = 60 }) => {
             }
         };
 
+        const handleMouseMove = (e) => {
+            const rect = canvas.getBoundingClientRect();
+            mouse.x = e.clientX - rect.left;
+            mouse.y = e.clientY - rect.top;
+        };
+
+        const handleMouseLeave = () => {
+            mouse.x = -1000;
+            mouse.y = -1000;
+        };
+
         class Particle {
             constructor() {
                 this.x = Math.random() * canvas.width;
                 this.y = Math.random() * canvas.height;
                 this.vx = (Math.random() - 0.5) * moveSpeed;
                 this.vy = (Math.random() - 0.5) * moveSpeed;
-                this.size = Math.random() * 2 + 1;
+                this.size = Math.random() * 2 + 1.5;
+                this.baseX = this.x;
+                this.baseY = this.y;
+                this.density = (Math.random() * 30) + 1;
                 this.color = '#14e08e'; // Mint green
             }
 
@@ -48,14 +72,39 @@ const PremiumBackground = ({ variant = 'default', particleCount = 60 }) => {
                 if (this.x > canvas.width) this.x = 0;
                 if (this.y < 0) this.y = canvas.height;
                 if (this.y > canvas.height) this.y = 0;
+
+                // Mouse interaction (Repel/Attract & Opacity)
+                const dx = mouse.x - this.x;
+                const dy = mouse.y - this.y;
+                const distance = Math.sqrt(dx * dx + dy * dy);
+
+                // Calculate opacity based on distance
+                if (distance < interactionRadius) {
+                    const opacityFactor = 1 - (distance / interactionRadius);
+                    this.opacity = baseOpacity + (activeOpacity - baseOpacity) * opacityFactor;
+                    this.glow = opacityFactor * 15; // Glow intensity
+                } else {
+                    this.opacity = baseOpacity;
+                    this.glow = 0;
+                }
             }
 
             draw() {
                 ctx.beginPath();
                 ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
                 ctx.fillStyle = this.color;
-                ctx.globalAlpha = isHero ? 0.6 : 0.3;
+                ctx.globalAlpha = this.opacity;
+
+                // Add glow effect for active particles
+                if (this.glow > 0) {
+                    ctx.shadowBlur = this.glow;
+                    ctx.shadowColor = 'rgba(20, 224, 142, 0.8)';
+                } else {
+                    ctx.shadowBlur = 0;
+                }
+
                 ctx.fill();
+                ctx.shadowBlur = 0; // Reset shadow
             }
         }
 
@@ -76,8 +125,6 @@ const PremiumBackground = ({ variant = 'default', particleCount = 60 }) => {
             });
 
             // Draw connections
-            ctx.globalAlpha = isHero ? 0.1 : 0.05;
-            ctx.strokeStyle = '#14e08e';
             ctx.lineWidth = 1;
 
             for (let i = 0; i < particles.length; i++) {
@@ -87,7 +134,20 @@ const PremiumBackground = ({ variant = 'default', particleCount = 60 }) => {
                     const distance = Math.sqrt(dx * dx + dy * dy);
 
                     if (distance < connectionDistance) {
+                        // Calculate line opacity based on mouse proximity to the line's center
+                        const midX = (particles[i].x + particles[j].x) / 2;
+                        const midY = (particles[i].y + particles[j].y) / 2;
+                        const distToMouse = Math.sqrt(Math.pow(midX - mouse.x, 2) + Math.pow(midY - mouse.y, 2));
+
+                        let lineOpacity = baseLineOpacity;
+
+                        if (distToMouse < interactionRadius) {
+                            const opacityFactor = 1 - (distToMouse / interactionRadius);
+                            lineOpacity = baseLineOpacity + (activeLineOpacity - baseLineOpacity) * opacityFactor;
+                        }
+
                         ctx.beginPath();
+                        ctx.strokeStyle = `rgba(20, 224, 142, ${lineOpacity})`;
                         ctx.moveTo(particles[i].x, particles[i].y);
                         ctx.lineTo(particles[j].x, particles[j].y);
                         ctx.stroke();
@@ -99,12 +159,17 @@ const PremiumBackground = ({ variant = 'default', particleCount = 60 }) => {
         };
 
         window.addEventListener('resize', resize);
+        window.addEventListener('mousemove', handleMouseMove);
+        window.addEventListener('mouseleave', handleMouseLeave);
+
         resize();
         init();
         animate();
 
         return () => {
             window.removeEventListener('resize', resize);
+            window.removeEventListener('mousemove', handleMouseMove);
+            window.removeEventListener('mouseleave', handleMouseLeave);
             cancelAnimationFrame(animationFrameId);
         };
     }, [variant, particleCount]);
