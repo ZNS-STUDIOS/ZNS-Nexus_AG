@@ -1,12 +1,44 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { Mail, MapPin, Phone, ArrowRight, Send } from 'lucide-react';
 import PremiumBackground from '../components/PremiumBackground';
 import './ContactPage.css';
 
 const ContactPage = () => {
+    const [formData, setFormData] = useState({
+        name: '',
+        email: '',
+        message: ''
+    });
+
+    const handleChange = (e) => {
+        setFormData({
+            ...formData,
+            [e.target.name]: e.target.value
+        });
+    };
+
+    const handleSubmit = (e) => {
+        e.preventDefault();
+
+        // Construct mailto link with form data
+        const subject = encodeURIComponent(`New Project Inquiry from ${formData.name}`);
+        const body = encodeURIComponent(
+            `Name: ${formData.name}\n` +
+            `Email: ${formData.email}\n\n` +
+            `Message:\n${formData.message}\n\n` +
+            `---\nSent from ZNS Nexus Contact Form`
+        );
+
+        // Open email client
+        window.location.href = `mailto:ZNS.NXS@proton.me?subject=${subject}&body=${body}`;
+
+        // Optional: Reset form after submission
+        setFormData({ name: '', email: '', message: '' });
+    };
+
     return (
         <div className="contact-page">
-            <PremiumBackground variant="section" particleCount={50} />
+            {/* CSS Background used for Skale style */}
             <div className="container contact-page-container">
                 <div className="contact-header">
                     <h1 className="contact-page-title">Let's Start a <br /><span className="text-gradient">Conversation</span></h1>
@@ -41,18 +73,42 @@ const ContactPage = () => {
                     </div>
 
                     {/* Contact Form */}
-                    <form className="contact-form">
+                    <form className="contact-form" onSubmit={handleSubmit}>
                         <div className="form-group">
                             <label htmlFor="name">Name</label>
-                            <input type="text" id="name" placeholder="John Doe" />
+                            <input
+                                type="text"
+                                id="name"
+                                name="name"
+                                value={formData.name}
+                                onChange={handleChange}
+                                placeholder="John Doe"
+                                required
+                            />
                         </div>
                         <div className="form-group">
                             <label htmlFor="email">Email</label>
-                            <input type="email" id="email" placeholder="john@example.com" />
+                            <input
+                                type="email"
+                                id="email"
+                                name="email"
+                                value={formData.email}
+                                onChange={handleChange}
+                                placeholder="john@example.com"
+                                required
+                            />
                         </div>
                         <div className="form-group">
                             <label htmlFor="message">Message</label>
-                            <textarea id="message" rows="5" placeholder="Tell us about your project..."></textarea>
+                            <textarea
+                                id="message"
+                                name="message"
+                                rows="5"
+                                value={formData.message}
+                                onChange={handleChange}
+                                placeholder="Tell us about your project..."
+                                required
+                            ></textarea>
                         </div>
                         <button type="submit" className="btn btn-primary btn-block">
                             Send Message <Send size={20} style={{ marginLeft: '10px' }} />
