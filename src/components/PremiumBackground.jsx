@@ -18,8 +18,15 @@ const PremiumBackground = ({ variant = 'default', particleCount = 60 }) => {
         const moveSpeed = isHero ? 0.2 : 0.1;
 
         const resize = () => {
-            canvas.width = window.innerWidth;
-            canvas.height = window.innerHeight;
+            const container = containerRef.current;
+            if (container) {
+                const rect = container.getBoundingClientRect();
+                canvas.width = rect.width;
+                canvas.height = rect.height;
+            } else {
+                canvas.width = window.innerWidth;
+                canvas.height = window.innerHeight;
+            }
         };
 
         class Particle {

@@ -31,3 +31,25 @@
     padding: 1.25rem 3rem;
     font-size: 1.25rem;
 }
+
+@media (max-width: 768px) {
+    .contact-section {
+        padding: 4rem 0;
+    }
+
+    .contact-title {
+        font-size: clamp(2rem, 8vw, 3rem);
+    }
+
+    .contact-subtitle {
+        font-size: 1rem;
+        margin-bottom: 2rem;
+    }
+
+    .btn-lg {
+        padding: 1.1rem 2rem;
+        font-size: 1.1rem;
+        min-height: 48px;
+        /* Touch target */
+    }
+}

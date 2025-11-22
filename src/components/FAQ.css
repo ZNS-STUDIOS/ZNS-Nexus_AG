@@ -47,3 +47,27 @@
     color: #cccccc;
     line-height: 1.6;
 }
+
+@media (max-width: 768px) {
+    .faq-question {
+        padding: 1.2rem 0;
+        min-height: 48px;
+        /* Touch target */
+    }
+
+    .faq-question h3 {
+        font-size: 1.1rem;
+        padding-right: 1rem;
+    }
+
+    .faq-icon {
+        min-width: 44px;
+        min-height: 44px;
+        /* Touch target */
+    }
+
+    .faq-answer p {
+        font-size: 0.95rem;
+        padding-bottom: 1rem;
+    }
+}

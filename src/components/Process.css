@@ -65,16 +65,33 @@
 }
 
 @media (max-width: 768px) {
+    .process-section-new {
+        padding: 3rem 0 5rem;
+    }
+
+    .process-header {
+        margin-bottom: 3rem;
+    }
+
+    .process-list {
+        gap: 2rem;
+    }
+
     .process-step-new {
         grid-template-columns: 1fr;
-        gap: 1rem;
+        gap: 1.5rem;
+        padding: 2rem 0;
     }
 
     .step-number-large {
-        font-size: 4rem;
+        font-size: 3rem;
     }
 
     .step-title-new {
-        font-size: 2rem;
+        font-size: clamp(1.5rem, 6vw, 2rem);
+    }
+
+    .step-desc-new {
+        font-size: 1rem;
     }
 }

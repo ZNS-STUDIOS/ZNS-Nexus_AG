@@ -10,10 +10,6 @@
     pointer-events: none;
 }
 
-.premium-background-wrapper.hero {
-    /* Hero specific overrides if needed */
-}
-
 .gradient-spotlight {
     position: absolute;
     width: 60vw;

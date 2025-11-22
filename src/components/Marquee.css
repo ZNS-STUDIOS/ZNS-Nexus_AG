@@ -29,3 +29,17 @@
     margin: 0 2rem;
     opacity: 0.5;
 }
+
+@media (max-width: 768px) {
+    .marquee-container {
+        padding: 0.8rem 0;
+    }
+
+    .marquee-item {
+        font-size: 1.2rem;
+    }
+
+    .marquee-separator {
+        margin: 0 1rem;
+    }
+}
