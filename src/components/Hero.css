@@ -16,108 +16,89 @@
     align-items: center;
     width: 100%;
     gap: 4rem;
-    /* Clear separation between bridge and text */
 }
 
-/* Bridge Visualization */
-.bridge-wrapper {
+/* Nexus Line Visualization - Premium & Minimal */
+.nexus-wrapper {
     width: 100%;
     display: flex;
     justify-content: center;
-    padding: 2rem 0;
-}
-
-.bridge-container {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    width: 100%;
-    max-width: 900px;
+    padding: 4rem 0;
     position: relative;
 }
 
-.hero-node {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    z-index: 10;
-    flex-shrink: 0;
-}
-
-.node-circle {
-    width: 160px;
-    height: 160px;
-    border-radius: 50%;
-    background: rgba(10, 10, 10, 0.8);
-    border: 2px solid var(--accent-color);
+.nexus-line-container {
+    position: relative;
+    width: 100%;
+    max-width: 600px;
+    height: 60px;
     display: flex;
     align-items: center;
     justify-content: center;
-    text-align: center;
-    box-shadow: 0 0 30px rgba(20, 224, 142, 0.15);
+}
+
+.nexus-line {
+    position: absolute;
+    top: 50%;
+    left: 0;
+    width: 100%;
+    height: 1px;
+    background: linear-gradient(90deg,
+            transparent 0%,
+            rgba(20, 224, 142, 0.2) 20%,
+            var(--accent-color) 50%,
+            rgba(20, 224, 142, 0.2) 80%,
+            transparent 100%);
+    transform: translateY(-50%);
+    box-shadow: 0 0 15px rgba(20, 224, 142, 0.3);
+}
+
+.nexus-dot-start,
+.nexus-dot-end {
+    position: absolute;
+    top: 50%;
+    width: 6px;
+    height: 6px;
+    background: var(--accent-color);
+    border-radius: 50%;
+    transform: translateY(-50%);
+    box-shadow: 0 0 10px var(--accent-color);
+}
+
+.nexus-dot-start {
+    left: 20%;
+}
+
+.nexus-dot-end {
+    right: 20%;
+}
+
+.nexus-badge {
+    position: relative;
+    z-index: 2;
+    padding: 0.6rem 1.8rem;
+    background: rgba(5, 5, 5, 0.8);
+    border: 1px solid rgba(20, 224, 142, 0.3);
+    border-radius: 100px;
     backdrop-filter: blur(10px);
+    box-shadow: 0 0 20px rgba(0, 0, 0, 0.5);
     transition: all 0.3s ease;
 }
 
-.node-circle span {
-    font-family: var(--font-heading);
-    font-size: 1.2rem;
-    font-weight: 700;
-    line-height: 1.2;
-    color: var(--text-color);
-    text-transform: uppercase;
-}
-
-.hero-node:hover .node-circle {
+.nexus-badge:hover {
+    border-color: var(--accent-color);
+    box-shadow: 0 0 30px rgba(20, 224, 142, 0.2);
     transform: scale(1.05);
-    box-shadow: 0 0 50px rgba(20, 224, 142, 0.3);
-    border-color: #fff;
 }
 
-.node-label {
-    margin-top: 1.5rem;
+.nexus-text {
     font-family: var(--font-mono);
+    font-size: 0.85rem;
+    color: var(--accent-color);
     text-transform: uppercase;
     letter-spacing: 3px;
-    font-size: 0.8rem;
-    color: #666;
-}
-
-.connection-visual {
-    position: absolute;
-    top: 80px;
-    /* Center vertically relative to node circle (160px/2) */
-    left: 80px;
-    /* Start from center of left node */
-    right: 80px;
-    /* End at center of right node */
-    height: 100px;
-    transform: translateY(-50%);
-    z-index: 1;
-    pointer-events: none;
-    /* Let mouse pass through to SVG */
-}
-
-.connection-svg {
-    width: 100%;
-    height: 100%;
-    overflow: visible;
-}
-
-.connection-badge {
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    font-family: var(--font-mono);
-    font-size: 0.75rem;
-    color: var(--accent-color);
-    background: var(--bg-color);
-    padding: 0.4rem 0.8rem;
-    border: 1px solid rgba(20, 224, 142, 0.3);
-    border-radius: 4px;
-    text-transform: uppercase;
-    letter-spacing: 1px;
+    font-weight: 500;
+    white-space: nowrap;
 }
 
 /* Hero Content */
@@ -160,45 +141,30 @@
         gap: 2rem;
     }
 
-    .bridge-container {
-        flex-direction: column;
-        gap: 2rem;
-        height: auto;
-        align-items: center;
-        padding: 1rem 0;
+    .nexus-wrapper {
+        padding: 2rem 0;
     }
 
-    .node-circle {
-        width: 120px;
-        height: 120px;
+    .nexus-line-container {
+        max-width: 100%;
+        padding: 0 1rem;
     }
 
-    .node-circle span {
-        font-size: 0.95rem;
+    .nexus-dot-start {
+        left: 10%;
     }
 
-    .node-label {
+    .nexus-dot-end {
+        right: 10%;
+    }
+
+    .nexus-badge {
+        padding: 0.5rem 1.2rem;
+    }
+
+    .nexus-text {
         font-size: 0.7rem;
-        margin-top: 1rem;
-    }
-
-    .connection-visual {
-        width: 100px;
-        height: 100%;
-        top: 0;
-        left: 50%;
-        transform: translateX(-50%);
-        right: auto;
-    }
-
-    .connection-svg {
-        transform: rotate(90deg);
-    }
-
-    .connection-badge {
-        transform: translate(-50%, -50%) rotate(-90deg);
-        font-size: 0.65rem;
-        padding: 0.3rem 0.6rem;
+        letter-spacing: 2px;
     }
 
     .hero-title {

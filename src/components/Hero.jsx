@@ -60,46 +60,14 @@ const Hero = () => {
             <PremiumBackground variant="hero" />
             <div className="hero-container container">
 
-                {/* Bridge Visualization - Top Part */}
-                <div className="bridge-wrapper">
-                    <div className="bridge-container">
-                        {/* Left Node */}
-                        <div className="hero-node node-left">
-                            <div className="node-circle">
-                                <span>Your<br />Demand</span>
-                            </div>
-                            <div className="node-label">Ambition</div>
-                        </div>
-
-                        {/* Connecting Line */}
-                        <div className="connection-visual">
-                            <svg viewBox="0 0 300 100" className="connection-svg" preserveAspectRatio="none">
-                                <path
-                                    ref={lineRef}
-                                    d="M10,50 Q150,50 290,50"
-                                    className="connection-line"
-                                    fill="none"
-                                    stroke="var(--accent-color)"
-                                    strokeWidth="3"
-                                    strokeLinecap="round"
-                                />
-                                <circle r="6" fill="var(--primary-color)" className="connection-dot">
-                                    <animateMotion
-                                        dur="2s"
-                                        repeatCount="indefinite"
-                                        path="M10,50 Q150,50 290,50"
-                                    />
-                                </circle>
-                            </svg>
-                            <div className="connection-badge">Connecting Dots</div>
-                        </div>
-
-                        {/* Right Node */}
-                        <div className="hero-node node-right">
-                            <div className="node-circle">
-                                <span>Vetted<br />Service</span>
-                            </div>
-                            <div className="node-label">Execution</div>
+                {/* Nexus Line Visualization - Premium & Minimal */}
+                <div className="nexus-wrapper">
+                    <div className="nexus-line-container">
+                        <div className="nexus-line"></div>
+                        <div className="nexus-dot-start"></div>
+                        <div className="nexus-dot-end"></div>
+                        <div className="nexus-badge">
+                            <span className="nexus-text">Connecting Dots</span>
                         </div>
                     </div>
                 </div>
