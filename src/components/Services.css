@@ -1,3 +1,34 @@
+.services-wrapper {
+    width: 100%;
+    height: 100vh;
+    overflow: hidden;
+    position: relative;
+}
+
+.services-container {
+    display: flex;
+    width: 500vw;
+    height: 100vh;
+    position: relative;
+    z-index: 10;
+}
+
+.service-slide {
+    width: 100vw;
+    height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 0 10vw;
+    border-right: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+.intro-slide {
+    flex-direction: column;
+    align-items: flex-start;
+    justify-content: center;
+}
+
 .intro-slide .section-title {
     font-size: clamp(4rem, 10vw, 12rem);
     line-height: 0.9;
